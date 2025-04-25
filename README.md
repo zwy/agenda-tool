@@ -18,3 +18,6 @@ pip install -r requirements.txt
 python main.py
 ```
 
+## 项目结构介绍
+
+星期日、星期六、星期五、星期四、星期三、星期二、星期一
