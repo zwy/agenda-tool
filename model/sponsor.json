@@ -1,0 +1,34 @@
+{
+    "type": "object",
+    "title": "赞助商信息",
+    "description": "赞助商相关信息的JSON Schema",
+    "properties": {
+        "sessionName": {
+            "title": "分会场名称",
+            "type": "string",
+            "description": "分会场名称，唯一标识",
+            "examples": ["宏基因组1", "宏基因组2"]
+        },
+        "sponsorType": {
+            "title": "赞助商类型",
+            "type": "string",
+            "description": "如学术合作机构等"
+        },
+        "sponsorName": {
+            "title": "赞助商名称",
+            "type": "string",
+            "description": "赞助商单位名称"
+        },
+        "sponsorLogo": {
+            "title": "赞助商logo",
+            "type": "string",
+            "description": "图片URL链接",
+            "format": "uri"
+        }
+    },
+    "required": [
+        "sessionName",
+        "sponsorType",
+        "sponsorName"
+    ]
+}
