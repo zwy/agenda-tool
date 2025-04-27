@@ -1,0 +1,103 @@
+{
+    "type": "array",
+    "title": "分会场列表",
+    "description": "分会场信息列表的JSON Schema",
+    "items": {
+        "type": "object",
+        "title": "分会场信息",
+        "description": "分会场相关信息的JSON Schema",
+        "properties": {
+            "sessionName": {
+                "title": "分会场名称",
+                "type": "string",
+                "description": "唯一",
+                "examples": ["宏基因组1", "宏基因组2"]
+            },
+            "showName": {
+                "title": "分会场名称展示",
+                "type": "string",
+                "description": "不唯一",
+                "examples": ["宏基因组"]
+            },
+            "type": {
+                "title": "分会场类型",
+                "type": "string",
+                "enum": ["开幕式", "培训班", "学术分会场", "产业分会场", "卫星会"]
+            },
+            "theme": {
+                "title": "主题",
+                "type": "string",
+                "description": "多个字符串，英文逗号分隔",
+                "examples": ["技术方法,营养与食品"]
+            },
+            "desc": {
+                "title": "分会场介绍",
+                "type": "string",
+                "examples": ["7小时干货培训就是让你大涨知识哦！"]
+            },
+            "venueName": {
+                "title": "场馆名称",
+                "type": "string",
+                "examples": ["311AB"]
+            },
+            "teyao": {
+                "title": "特邀报告数量",
+                "type": "integer",
+                "default": 0
+            },
+            "tougao": {
+                "title": "投稿报告数量",
+                "type": "integer",
+                "default": 0
+            },
+            "haiwai": {
+                "title": "海外报告数量",
+                "type": "integer",
+                "default": 0
+            },
+            "sessionCode": {
+                "title": "分会场编码",
+                "type": "string",
+                "description": "基于（分会场名称+meeting）生成base64编码，如果分会场名称变了，这个也变了"
+            },
+            "startTime": {
+                "title": "开始时间",
+                "type": "string",
+                "examples": ["2025-01-01 08:00:00"]
+            },
+            "endTime": {
+                "title": "结束时间",
+                "type": "string",
+                "examples": ["2025-01-01 12:00:00"]
+            },
+            "day": {
+                "title": "日期",
+                "type": "string",
+                "description": "基于开始时间生成",
+                "examples": ["05月23日"]
+            },
+            "week": {
+                "title": "星期",
+                "type": "string",
+                "enum": ["星期日", "星期六", "星期五", "星期四", "星期三", "星期二", "星期一"],
+                "default": "星期一"
+            },
+            "eeee": {
+                "title": "时间段",
+                "type": "string",
+                "enum": ["上午", "中午", "下午"],
+                "default": "上午"
+            }
+        },
+        "required": [
+            "sessionName",
+            "showName",
+            "type",
+            "venueName",
+            "sessionCode",
+            "startTime",
+            "endTime"
+        ]
+    },
+    "default": []
+}

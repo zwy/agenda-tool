@@ -83,11 +83,6 @@
             "type": "string",
             "enum": ["上午", "中午", "下午"],
             "default": "上午"
-        },
-        "meeting": {
-            "title": "会议编码",
-            "type": "string",
-            "description": ""
         }
     },
     "required": [

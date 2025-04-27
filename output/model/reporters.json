@@ -1,0 +1,66 @@
+{
+    "title": "讲者列表",
+    "description": "仅支持专家中的报告人、PI的数组",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "title": "专家信息",
+        "description": "专家相关信息",
+        "properties": {
+            "expertName": {
+                "title": "专家姓名",
+                "type": "string",
+                "description": "专家姓名，同一个分会场里唯一"
+            },
+            "avatar": {
+                "title": "头像",
+                "type": "string",
+                "description": "头像文件名，按规则上传即可",
+                "format": "uri"
+            },
+            "pinyin": {
+                "title": "专家姓名拼音",
+                "type": "string",
+                "description": "按照姓名自动生成"
+            },
+            "title": {
+                "title": "第一Title",
+                "type": "string",
+                "description": "例如南京医科大学第二附属医院"
+            },
+            "secondTitle": {
+                "title": "第二Title",
+                "type": "string",
+                "description": "例如南京医科大学第二附属医院"
+            },
+            "academician": {
+                "title": "院士类型",
+                "type": "string",
+                "description": "院士类型",
+                "enum": [
+                    "中国工程院院士",
+                    "中国科学院院士"
+                ]
+            },
+            "chairman": {
+                "title": "主席类型",
+                "type": "string",
+                "description": "主席类型",
+                "enum": [
+                    "主席",
+                    "名誉主席",
+                    "执行主席"
+                ]
+            },
+            "rbaseUrl": {
+                "title": "Rbase页面URL",
+                "type": "string",
+                "format": "uri",
+                "description": "专家在rbase上的个人详情页链接"
+            }
+        },
+        "required": [
+            "expertName"
+        ]
+    }
+}
