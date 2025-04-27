@@ -76,7 +76,8 @@
         },
         "permission": {
             "title": "视频权限",
-            "type": "string"
+            "type": "string",
+            "enum": ["授权", "未授权"]
         },
         "cover": {
             "title": "视频封面",
