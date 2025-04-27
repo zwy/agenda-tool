@@ -1,0 +1,92 @@
+{
+    "type": "object",
+    "title": "报告信息",
+    "description": "报告相关信息的JSON Schema",
+    "properties": {
+        "sessionName": {
+            "title": "分会场名称",
+            "type": "string",
+            "description": "分会场名称，唯一标识",
+            "examples": ["宏基因组1", "宏基因组2"]
+        },
+        "reporterName": {
+            "title": "报告人姓名",
+            "type": "string",
+            "description": "多个字符串，英文逗号分隔",
+            "examples": ["张三,李四"]
+        },
+        "piName": {
+            "title": "团队PI姓名",
+            "type": "string",
+            "description": "多个字符串，英文逗号分隔",
+            "examples": ["王五,刘六"]
+        },
+        "reportType": {
+            "title": "报告类型",
+            "type": "string",
+            "enum": ["报告", "茶歇", "其他"]
+        },
+        "reportTitle": {
+            "title": "报告题目",
+            "type": "string"
+        },
+        "reportEnTitle": {
+            "title": "报告英文题目",
+            "type": "string"
+        },
+        "startTime": {
+            "title": "开始时间",
+            "type": "string",
+            "examples": [
+                "2025-01-01 08:00:00"
+            ]
+        },
+        "endTime": {
+            "title": "结束时间",
+            "type": "string",
+            "examples": [
+                "2025-01-01 12:00:00"
+            ]
+        },
+        "summary": {
+            "title": "简介",
+            "type": "string"
+        },
+        "enSummary": {
+            "title": "英文简介",
+            "type": "string"
+        },
+        "agendaCode": {
+            "title": "报告编码",
+            "type": "string",
+            "description": "人工维护"
+        },
+        "reportSource": {
+            "title": "报告来源",
+            "type": "string",
+            "enum": ["特邀", "海外", "投稿"]
+        },
+        "aliyunVid": {
+            "title": "视频阿里云ID",
+            "type": "string"
+        },
+        "duration": {
+            "title": "视频时长",
+            "type": "string"
+        },
+        "permission": {
+            "title": "视频权限",
+            "type": "string"
+        },
+        "cover": {
+            "title": "视频封面",
+            "type": "string"
+        }
+    },
+    "required": [
+        "sessionName",
+        "reportType",
+        "agendaCode",
+        "reportSource"
+    ]
+}

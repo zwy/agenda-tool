@@ -1,0 +1,93 @@
+{
+    "type": "object",
+    "title": "壁报信息",
+    "description": "壁报相关信息的JSON Schema",
+    "properties": {
+        "boardNum": {
+            "title": "壁报编号",
+            "type": "string"
+        },
+        "bibaoPic": {
+            "title": "壁报图片",
+            "type": "string",
+            "format": "uri"
+        },
+        "reportTitle": {
+            "title": "稿件标题",
+            "type": "string"
+        },
+        "theme": {
+            "title": "主题",
+            "type": "string",
+            "description": "多个字符串，英文逗号分隔",
+            "examples": ["技术方法,营养与食品"]
+        },
+        "name": {
+            "title": "投稿人姓名",
+            "type": "string"
+        },
+        "employer": {
+            "title": "投稿人单位",
+            "type": "string"
+        },
+        "position": {
+            "title": "投稿人职务",
+            "type": "string"
+        },
+        "background": {
+            "title": "研究目的",
+            "type": "string"
+        },
+        "methods": {
+            "title": "研究方法",
+            "type": "string"
+        },
+        "results": {
+            "title": "研究结果",
+            "type": "string"
+        },
+        "conclusion": {
+            "title": "研究结论",
+            "type": "string"
+        },
+        "images": {
+            "title": "研究图表",
+            "type": "string"
+        },
+        "keywords": {
+            "title": "关键词",
+            "type": "string"
+        },
+        "aliyunVid": {
+            "title": "视频阿里云ID",
+            "type": "string"
+        },
+        "duration": {
+            "title": "视频时长",
+            "type": "string"
+        },
+        "permission": {
+            "title": "视频权限",
+            "type": "string"
+        },
+        "cover": {
+            "title": "视频封面",
+            "type": "string"
+        }
+    },
+    "required": [
+        "boardNum",
+        "bibaoPic",
+        "reportTitle",
+        "theme",
+        "name",
+        "employer",
+        "position",
+        "background",
+        "methods",
+        "results",
+        "conclusion",
+        "images",
+        "keywords"
+    ]
+}

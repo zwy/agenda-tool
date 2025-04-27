@@ -1,0 +1,29 @@
+{
+    "type": "object",
+    "title": "视频信息",
+    "description": "视频相关信息的JSON Schema",
+    "properties": {
+        "aliyunVid": {
+            "title": "视频阿里云ID",
+            "type": "string"
+        },
+        "duration": {
+            "title": "视频时长",
+            "type": "string"
+        },
+        "permission": {
+            "title": "视频权限",
+            "type": "string"
+        },
+        "cover": {
+            "title": "视频封面",
+            "type": "string"
+        }
+    },
+    "required": [
+        "aliyunVid",
+        "duration",
+        "permission",
+        "cover"
+    ]
+}
