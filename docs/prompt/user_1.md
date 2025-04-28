@@ -1,8 +1,3 @@
-这是一个 python 项目
-目前使用的库，请在 requirements.txt 中查看
-如果在写代码时需要使用到其他的库，请在requirements.txt中添加。
-注意：本项目需要支持 windows 和 macOS 系统
-
 以下是我的一个需求描述：
 1. 从一个文件夹 `input/session` 中读取所有的Excel文件
 2. 读取每个Excel文件中的数据

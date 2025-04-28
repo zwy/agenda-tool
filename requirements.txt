@@ -1,0 +1,4 @@
+pandas
+openpyxl
+# 用于加载环境变量
+python-dotenv>=0.21.0
