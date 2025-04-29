@@ -82,7 +82,8 @@ def process_session_data():
                     if not isinstance(start_time, datetime):
                         try:
                             start_time = pd.to_datetime(start_time)
-                        except:
+                        except Exception:
+                            print(f"错误：无法解析开始时间: {start_time}")
                             start_time = None
                     
                     if isinstance(start_time, datetime):
@@ -111,7 +112,8 @@ def process_session_data():
                     if not isinstance(end_time, datetime):
                         try:
                             end_time = pd.to_datetime(end_time)
-                        except:
+                        except Exception:
+                            print(f"错误：无法解析结束时间: {end_time}")
                             end_time = None
                     
                     if isinstance(end_time, datetime):

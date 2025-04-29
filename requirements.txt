@@ -2,3 +2,7 @@ pandas
 openpyxl
 # 用于加载环境变量
 python-dotenv>=0.21.0
+# 用于Windows系统下检查进程
+psutil
+# 阿里云OSS SDK
+oss2

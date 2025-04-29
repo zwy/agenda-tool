@@ -18,6 +18,12 @@ pip install -r requirements.txt
 python main.py
 ```
 
-## 项目结构介绍
-
-星期日、星期六、星期五、星期四、星期三、星期二、星期一
+## tree 项目目录结构
+### tree (默认)
+```
+tree >tree.md 
+```
+### tree -f 显示完整路径 (包含斜杠/)
+```
+tree -f >tree_f.md
+```
