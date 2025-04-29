@@ -32,6 +32,7 @@ def setup_logging():
 def check_log_for_errors(log_file):
     error_patterns = [
         r'Error:',
+        r'ERROR',
         r'Exception:',
         r'Traceback \(most recent call last\):',
         r'error:',
