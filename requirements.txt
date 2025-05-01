@@ -6,3 +6,7 @@ python-dotenv>=0.21.0
 psutil
 # 阿里云OSS SDK
 oss2
+# 用于异步HTTP请求
+aiohttp
+# 用于异步编程
+asyncio
