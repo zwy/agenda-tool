@@ -10,3 +10,5 @@ oss2
 aiohttp
 # 用于异步编程
 asyncio
+# 用于汉字转拼音
+pypinyin
