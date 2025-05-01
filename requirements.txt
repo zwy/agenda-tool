@@ -12,3 +12,5 @@ aiohttp
 asyncio
 # 用于汉字转拼音
 pypinyin
+# 用于图片处理
+Pillow
