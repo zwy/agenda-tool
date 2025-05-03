@@ -41,7 +41,8 @@ def process_output_expert():
                     # 验证必填字段
                     missing_fields = [field for field in required_fields if not expert[field]]
                     if missing_fields:
-                        print(f"警告: 记录缺少必填字段值: {missing_fields}, 跳过该记录: {expert['expertName'] if expert['expertName'] else '未知专家'}")
+                        print(
+                            f"错误: 记录缺少必填字段值: {missing_fields}, 跳过该记录: {expert['expertName'] if expert['expertName'] else '未知专家'}")
                         continue
                         
                     experts.append(expert)

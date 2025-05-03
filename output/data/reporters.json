@@ -1,102 +1,32 @@
 [
-    {
-        "expertName": "王明",
-        "avatar": "https://example.com/avatars/wang_ming.jpg",
-        "pinyin": "wangming",
-        "title": "北京医科大学附属肿瘤医院",
-        "secondTitle": "肿瘤内科主任",
-        "academician": "中国科学院院士",
-        "chairman": "主席",
-        "rbaseUrl": "https://rbase.example.com/expert/wang_ming"
-    },
-    {
-        "expertName": "李华",
-        "avatar": "https://example.com/avatars/li_hua.jpg",
-        "pinyin": "lihua",
-        "title": "上海交通大学医学院附属瑞金医院",
-        "secondTitle": "肿瘤研究中心主任",
-        "academician": "",
-        "chairman": "",
-        "rbaseUrl": "https://rbase.example.com/expert/li_hua"
-    },
-    {
-        "expertName": "张伟",
-        "avatar": "https://example.com/avatars/zhang_wei.jpg",
-        "pinyin": "zhangwei",
-        "title": "中国医学科学院病原生物学研究所",
-        "secondTitle": "感染免疫研究中心主任",
-        "academician": "",
-        "chairman": "执行主席",
-        "rbaseUrl": "https://rbase.example.com/expert/zhang_wei"
-    },
-    {
-        "expertName": "陈芳",
-        "avatar": "https://example.com/avatars/chen_fang.jpg",
-        "pinyin": "chenfang",
-        "title": "复旦大学附属华山医院",
-        "secondTitle": "传染病科主任",
-        "academician": "",
-        "chairman": "",
-        "rbaseUrl": "https://rbase.example.com/expert/chen_fang"
-    },
-    {
-        "expertName": "刘强",
-        "avatar": "https://example.com/avatars/liu_qiang.jpg",
-        "pinyin": "liuqiang",
-        "title": "中山大学中山医学院",
-        "secondTitle": "微生物学教授",
-        "academician": "中国工程院院士",
-        "chairman": "名誉主席",
-        "rbaseUrl": "https://rbase.example.com/expert/liu_qiang"
-    },
-    {
-        "expertName": "周静",
-        "avatar": "https://example.com/avatars/zhou_jing.jpg",
-        "pinyin": "zhoujing",
-        "title": "浙江大学医学院",
-        "secondTitle": "基因组学研究员",
-        "academician": "",
-        "chairman": "",
-        "rbaseUrl": "https://rbase.example.com/expert/zhou_jing"
-    },
-    {
-        "expertName": "吴勇",
-        "avatar": "https://example.com/avatars/wu_yong.jpg",
-        "pinyin": "wuyong",
-        "title": "北京协和医院",
-        "secondTitle": "心血管内科主任",
-        "academician": "",
-        "chairman": "主席",
-        "rbaseUrl": "https://rbase.example.com/expert/wu_yong"
-    },
-    {
-        "expertName": "林小红",
-        "avatar": "https://example.com/avatars/lin_xiaohong.jpg",
-        "pinyin": "linxiaohong",
-        "title": "南方医科大学南方医院",
-        "secondTitle": "心脏外科副主任",
-        "academician": "",
-        "chairman": "",
-        "rbaseUrl": "https://rbase.example.com/expert/lin_xiaohong"
-    },
-    {
-        "expertName": "黄博",
-        "avatar": "https://example.com/avatars/huang_bo.jpg",
-        "pinyin": "huangbo",
-        "title": "中国科学院神经科学研究所",
-        "secondTitle": "神经退行性疾病研究中心主任",
-        "academician": "中国科学院院士",
-        "chairman": "执行主席",
-        "rbaseUrl": "https://rbase.example.com/expert/huang_bo"
-    },
-    {
-        "expertName": "赵梅",
-        "avatar": "https://example.com/avatars/zhao_mei.jpg",
-        "pinyin": "zhaomei",
-        "title": "清华大学医学院",
-        "secondTitle": "神经科学教授",
-        "academician": "",
-        "chairman": "",
-        "rbaseUrl": "https://rbase.example.com/expert/zhao_mei"
-    }
+  {
+    "expertName": "李四",
+    "avatar": "https://cdn.mr-gut.cn/data/chinagut2025/avatar/iMeta%E4%BD%9C%E8%80%85%E8%AE%BA%E5%9D%9B/%E6%9D%8E%E5%9B%9B.png",
+    "pinyin": "li si",
+    "title": "北京大学教授",
+    "secondTitle": "南京医科大学教授",
+    "academician": "中国工程院院士",
+    "chairman": "主席",
+    "rbaseUrl": ""
+  },
+  {
+    "expertName": "王五",
+    "avatar": "https://cdn.mr-gut.cn/data/chinagut2025/avatar/iMeta%E4%BD%9C%E8%80%85%E8%AE%BA%E5%9D%9B/%E7%8E%8B%E4%BA%94.png",
+    "pinyin": "wang wu",
+    "title": "",
+    "secondTitle": "",
+    "academician": "",
+    "chairman": "",
+    "rbaseUrl": ""
+  },
+  {
+    "expertName": "张三",
+    "avatar": "https://cdn.mr-gut.cn/data/chinagut2025/avatar/iMeta%E4%BD%9C%E8%80%85%E8%AE%BA%E5%9D%9B/%E5%BC%A0%E4%B8%89.png",
+    "pinyin": "zhang san",
+    "title": "北京大学教授",
+    "secondTitle": "南京医科大学教授",
+    "academician": "中国工程院院士",
+    "chairman": "主席",
+    "rbaseUrl": ""
+  }
 ]

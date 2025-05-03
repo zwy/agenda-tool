@@ -33,7 +33,7 @@ def process_output_session():
                     # 验证必填字段
                     missing_fields = [field for field in required_fields if field not in session or not session[field]]
                     if missing_fields:
-                        print(f"警告: 记录缺少必填字段: {missing_fields}, 跳过该记录")
+                        print(f"错误: 记录缺少必填字段: {missing_fields}, 跳过该记录")
                         continue
                     sessions.append(session)
         print(f"已读取并验证{len(sessions)}条分会场数据")

@@ -70,7 +70,7 @@ def process_video_data():
                         # 格式化为 "分钟:秒" 格式
                         video["duration"] = f"{minutes}:{remaining_seconds:02d}"
                     except ValueError:
-                        print(f"警告: 无法解析视频时长值: {video['duration']}")
+                        print(f"错误: 无法解析视频时长值: {video['duration']}")
 
                 # 验证必填字段
                 required_fields = schema.get("required", [])
@@ -89,7 +89,7 @@ def process_video_data():
                         existing_videos[video["aliyunVid"]] = video
                         print(f"添加新视频: {video['aliyunVid']}")
                 else:
-                    print(f"警告: 跳过缺少必填字段的记录: {missing_fields}")
+                    print(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
                     
         except Exception as e:
             print(f"处理文件 {csv_file} 时出错: {str(e)}")

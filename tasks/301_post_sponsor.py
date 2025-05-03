@@ -33,7 +33,7 @@ def process_output_sponsor():
                     # 验证必填字段
                     missing_fields = [field for field in required_fields if field not in sponsor or not sponsor[field]]
                     if missing_fields:
-                        print(f"警告: 记录缺少必填字段: {missing_fields}, 跳过该记录")
+                        print(f"错误: 记录缺少必填字段: {missing_fields}, 跳过该记录")
                         continue
                     sponsors.append(sponsor)
         print(f"已读取并验证{len(sponsors)}条赞助商数据")

@@ -86,8 +86,6 @@
     },
     "required": [
         "sessionName",
-        "reportType",
-        "agendaCode",
-        "reportSource"
+        "agendaCode"
     ]
 }

@@ -147,7 +147,7 @@ def process_session_data():
                         existing_sessions[session["sessionCode"]] = session
                         print(f"添加新分会场: {session['sessionName']}")
                 else:
-                    print(f"警告: 跳过缺少必填字段的记录: {missing_fields}")
+                    print(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
                     
         except Exception as e:
             print(f"处理文件 {excel_file} 时出错: {str(e)}")

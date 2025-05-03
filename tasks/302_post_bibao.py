@@ -33,7 +33,7 @@ def process_output_bibao():
                     # 验证必填字段
                     missing_fields = [field for field in required_fields if field not in bibao or not bibao[field]]
                     if missing_fields:
-                        print(f"警告: 记录缺少必填字段: {missing_fields}, 跳过该记录")
+                        print(f"错误: 记录缺少必填字段: {missing_fields}, 跳过该记录")
                         continue
                     bibaos.append(bibao)
         print(f"已读取并验证{len(bibaos)}条壁报数据")

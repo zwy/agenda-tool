@@ -47,7 +47,7 @@ def process_expert_data():
         expert_name = expert.get("expertName")
         
         if not session_name or not expert_name:
-            print(f"警告: 专家数据缺少sessionName或expertName字段: {expert}")
+            print(f"错误: 专家数据缺少sessionName或expertName字段: {expert}")
             continue
         
         # 检查头像文件是否存在

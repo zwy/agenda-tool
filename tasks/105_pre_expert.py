@@ -116,7 +116,7 @@ def process_expert_data():
                         existing_experts[expert["expertCode"]] = expert
                         print(f"添加新专家: {expert['expertName']} ({expert['sessionName']})")
                 else:
-                    print(f"警告: 跳过缺少必填字段的记录: {missing_fields}")
+                    print(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
                 
                 all_experts.append(expert)
                     
