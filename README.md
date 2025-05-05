@@ -7,6 +7,14 @@
 cd 当前目录
 ```
 
+### 环境变量
+```
+cp .env.example .env
+```
+### 修改 .env
+
+- 这里按需求修改
+
 ### 安装依赖库
 
 ```
@@ -16,14 +24,4 @@ pip install -r requirements.txt
 ## 执行
 ```
 python main.py
-```
-
-## tree 项目目录结构
-### tree (默认)
-```
-tree >tree.md 
-```
-### tree -f 显示完整路径 (包含斜杠/)
-```
-tree -f >tree_f.md
 ```
