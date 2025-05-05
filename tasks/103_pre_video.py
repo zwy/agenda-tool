@@ -3,6 +3,15 @@ import pandas as pd
 import json
 import pathlib
 from dotenv import load_dotenv
+import logging
+
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    encoding='utf-8'
+)
+logger = logging.getLogger(__name__)
 
 load_dotenv()  # 加载环境变量
 
@@ -38,13 +47,13 @@ def process_video_data():
                         video = json.loads(line)
                         if "aliyunVid" in video:
                             existing_videos[video["aliyunVid"]] = video
-            print(f"已读取{len(existing_videos)}条现有视频数据")
+            logger.info(f"已读取{len(existing_videos)}条现有视频数据")
         except Exception as e:
-            print(f"读取现有数据时出错: {str(e)}")
+            logger.error(f"读取现有数据时出错: {str(e)}")
     
     # 处理每个CSV文件
     for csv_file in csv_files:
-        print(f"处理文件: {csv_file}")
+        logger.info(f"处理文件: {csv_file}")
         try:
             df = pd.read_csv(csv_file)
             
@@ -70,7 +79,7 @@ def process_video_data():
                         # 格式化为 "分钟:秒" 格式
                         video["duration"] = f"{minutes}:{remaining_seconds:02d}"
                     except ValueError:
-                        print(f"错误: 无法解析视频时长值: {video['duration']}")
+                        logger.error(f"错误: 无法解析视频时长值: {video['duration']}")
 
                 # 验证必填字段
                 required_fields = schema.get("required", [])
@@ -83,23 +92,23 @@ def process_video_data():
                         existing_video = existing_videos[video["aliyunVid"]]
                         existing_video.update(video)
                         existing_videos[video["aliyunVid"]] = existing_video
-                        print(f"更新已存在的视频: {video['aliyunVid']}")
+                        logger.info(f"更新已存在的视频: {video['aliyunVid']}")
                     elif "aliyunVid" in video:
                         # 如果不存在，添加新记录
                         existing_videos[video["aliyunVid"]] = video
-                        print(f"添加新视频: {video['aliyunVid']}")
+                        logger.info(f"添加新视频: {video['aliyunVid']}")
                 else:
-                    print(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
+                    logger.error(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
                     
         except Exception as e:
-            print(f"处理文件 {csv_file} 时出错: {str(e)}")
+            logger.error(f"处理文件 {csv_file} 时出错: {str(e)}")
     
     # 写入JSONL文件
     with open(output_file, "w", encoding="utf-8") as f:
         for video in existing_videos.values():
             f.write(json.dumps(video, ensure_ascii=False) + "\n")
     
-    print(f"成功处理视频数据并保存到 {output_file}，共 {len(existing_videos)} 条记录")
+    logger.info(f"成功处理视频数据并保存到 {output_file}，共 {len(existing_videos)} 条记录")
 
 if __name__ == "__main__":
     process_video_data()

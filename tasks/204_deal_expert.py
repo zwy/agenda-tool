@@ -3,7 +3,14 @@ import pathlib
 import os
 import shutil
 import urllib.parse
+import logging
 from dotenv import load_dotenv
+
+# 配置日志
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
+logger = logging.getLogger(__name__)
+
+load_dotenv()  # 加载环境变量
 
 
 def process_expert_data():
@@ -11,19 +18,18 @@ def process_expert_data():
     处理专家数据，检查头像是否存在，更新avatar字段为OSS URL，并复制头像文件到输出目录
     """
     # 加载环境变量
-    load_dotenv()
     OSS_CDN_URL = os.getenv("OSS_CDN_URL")
     OSS_DATA_DIR = os.getenv("OSS_DATA_DIR")
     
     if not OSS_CDN_URL or not OSS_DATA_DIR:
-        print("错误: 环境变量OSS_CDN_URL或OSS_DATA_DIR未设置!")
+        logger.error("错误: 环境变量OSS_CDN_URL或OSS_DATA_DIR未设置!")
         return
     
     # 读取expert.jsonl文件
     input_file = pathlib.Path("data/expert.jsonl")
     
     if not input_file.exists():
-        print(f"错误: 文件 {input_file} 不存在!")
+        logger.error(f"错误: 文件 {input_file} 不存在!")
         return
     
     experts = []
@@ -33,9 +39,9 @@ def process_expert_data():
                 if line.strip():
                     expert = json.loads(line)
                     experts.append(expert)
-        print(f"已读取{len(experts)}条专家数据")
+        logger.info(f"已读取{len(experts)}条专家数据")
     except Exception as e:
-        print(f"读取数据时出错: {str(e)}")
+        logger.error(f"读取数据时出错: {str(e)}")
         return
     
     # 处理每个专家的数据
@@ -47,14 +53,14 @@ def process_expert_data():
         expert_name = expert.get("expertName")
         
         if not session_name or not expert_name:
-            print(f"错误: 专家数据缺少sessionName或expertName字段: {expert}")
+            logger.error(f"错误: 专家数据缺少sessionName或expertName字段: {expert}")
             continue
         
         # 检查头像文件是否存在
         avatar_path = pathlib.Path(f"input/avatar/{session_name}/{expert_name}.png")
         
         if not avatar_path.exists():
-            print(f"错误: 专家 {expert_name} 的头像文件不存在: {avatar_path}")
+            logger.error(f"错误: 专家 {expert_name} 的头像文件不存在: {avatar_path}")
             error_count += 1
             continue
         
@@ -75,19 +81,19 @@ def process_expert_data():
         shutil.copy2(avatar_path, output_path)
     
     if error_count > 0:
-        print(f"发现 {error_count} 个头像文件不存在的错误，处理已中止.")
+        logger.error(f"发现 {error_count} 个头像文件不存在的错误，处理已中止.")
         return
     
-    print(f"已更新 {updated_count} 条专家记录的avatar字段")
+    logger.info(f"已更新 {updated_count} 条专家记录的avatar字段")
     
     # 保存回文件
     try:
         with open(input_file, "w", encoding="utf-8") as f:
             for expert in experts:
                 f.write(json.dumps(expert, ensure_ascii=False) + "\n")
-        print(f"已将更新后的数据保存到 {input_file}")
+        logger.info(f"已将更新后的数据保存到 {input_file}")
     except Exception as e:
-        print(f"保存数据时出错: {str(e)}")
+        logger.error(f"保存数据时出错: {str(e)}")
 
 
 if __name__ == "__main__":

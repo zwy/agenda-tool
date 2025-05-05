@@ -3,7 +3,7 @@ import pathlib
 import logging
 
 # 配置日志
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
 logger = logging.getLogger(__name__)
 
 def process_report_to_individual_files():

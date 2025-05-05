@@ -5,6 +5,15 @@ import base64
 from datetime import datetime
 import pathlib
 from dotenv import load_dotenv
+import logging
+
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    encoding='utf-8'
+)
+logger = logging.getLogger(__name__)
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -42,13 +51,13 @@ def process_session_data():
                         session = json.loads(line)
                         if "sessionCode" in session:
                             existing_sessions[session["sessionCode"]] = session
-            print(f"已读取{len(existing_sessions)}条现有分会场数据")
+            logger.info(f"已读取{len(existing_sessions)}条现有分会场数据")
         except Exception as e:
-            print(f"读取现有数据时出错: {str(e)}")
+            logger.error(f"读取现有数据时出错: {str(e)}")
     
     # 处理每个Excel文件
     for excel_file in excel_files:
-        print(f"处理文件: {excel_file}")
+        logger.info(f"处理文件: {excel_file}")
         try:
             df = pd.read_excel(excel_file)
             
@@ -82,7 +91,7 @@ def process_session_data():
                         try:
                             start_time = pd.to_datetime(start_time)
                         except Exception:
-                            print(f"错误：无法解析开始时间: {start_time}")
+                            logger.error(f"错误：无法解析开始时间: {start_time}")
                             start_time = None
                     
                     if isinstance(start_time, datetime):
@@ -112,7 +121,7 @@ def process_session_data():
                         try:
                             end_time = pd.to_datetime(end_time)
                         except Exception:
-                            print(f"错误：无法解析结束时间: {end_time}")
+                            logger.error(f"错误：无法解析结束时间: {end_time}")
                             end_time = None
                     
                     if isinstance(end_time, datetime):
@@ -141,23 +150,23 @@ def process_session_data():
                         session["tougao"] = existing_session.get("tougao", 0)
                         session["haiwai"] = existing_session.get("haiwai", 0)
                         existing_sessions[session["sessionCode"]] = session
-                        print(f"更新已存在的分会场: {session['sessionName']}")
+                        logger.info(f"更新已存在的分会场: {session['sessionName']}")
                     else:
                         # 如果不存在，添加新记录
                         existing_sessions[session["sessionCode"]] = session
-                        print(f"添加新分会场: {session['sessionName']}")
+                        logger.info(f"添加新分会场: {session['sessionName']}")
                 else:
-                    print(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
+                    logger.error(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
                     
         except Exception as e:
-            print(f"处理文件 {excel_file} 时出错: {str(e)}")
+            logger.error(f"处理文件 {excel_file} 时出错: {str(e)}")
     
     # 写入JSONL文件
     with open(output_file, "w", encoding="utf-8") as f:
         for session in existing_sessions.values():
             f.write(json.dumps(session, ensure_ascii=False) + "\n")
     
-    print(f"成功处理分会场数据并保存到 {output_file}，共 {len(existing_sessions)} 条记录")
+    logger.info(f"成功处理分会场数据并保存到 {output_file}，共 {len(existing_sessions)} 条记录")
 
 if __name__ == "__main__":
     process_session_data()

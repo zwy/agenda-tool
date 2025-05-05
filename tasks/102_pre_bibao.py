@@ -2,7 +2,12 @@ import os
 import json
 import asyncio
 import aiohttp
+import logging
 from dotenv import load_dotenv
+
+# 配置日志
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
+logger = logging.getLogger(__name__)
 
 # 加载环境变量
 load_dotenv()
@@ -24,25 +29,25 @@ async def fetch_bibao_data():
         async with aiohttp.ClientSession() as session:
             async with session.get(url, headers=headers) as response:
                 if response.status != 200:
-                    print(f"请求失败，状态码：{response.status}")
+                    logger.error(f"请求失败，状态码：{response.status}")
                     return None
                 
                 response_text = await response.text()
                 response_json = json.loads(response_text)
                 
                 if response_json.get("code") != 200:
-                    print(f"API返回错误：{response_json.get('msg')}")
+                    logger.error(f"API返回错误：{response_json.get('msg')}")
                     return None
                 
                 return response_json
     except Exception as e:
-        print(f"获取壁报数据失败: {e}")
+        logger.error(f"获取壁报数据失败: {e}")
         return None
 
 def process_bibao_data(data):
     """处理壁报数据，确保符合schema要求"""
     if not data or "data" not in data:
-        print("数据格式不正确")
+        logger.error("数据格式不正确")
         return []
     
     bibao_list = data.get("data", [])
@@ -80,18 +85,18 @@ def process_bibao_data(data):
 async def main():
     """主函数"""
     # 获取壁报数据
-    print(f"正在从 {TOUGAO_API_HOST}/open/bibaos/all?uuid={TOUGAO_UUID} 获取壁报数据...")
+    logger.info(f"正在从 {TOUGAO_API_HOST}/open/bibaos/all?uuid={TOUGAO_UUID} 获取壁报数据...")
     response = await fetch_bibao_data()
     
     if not response:
-        print("获取壁报数据失败")
+        logger.error("获取壁报数据失败")
         return
     
     # 处理数据
     processed_data = process_bibao_data(response)
     
     if not processed_data:
-        print("处理壁报数据失败")
+        logger.error("处理壁报数据失败")
         return
     
     # 创建data目录（如果不存在）
@@ -103,7 +108,7 @@ async def main():
         for item in processed_data:
             f.write(json.dumps(item, ensure_ascii=False) + "\n")
     
-    print(f"壁报数据已保存到 {output_file}, 共 {len(processed_data)} 条记录")
+    logger.info(f"壁报数据已保存到 {output_file}, 共 {len(processed_data)} 条记录")
 
 if __name__ == "__main__":
     asyncio.run(main())

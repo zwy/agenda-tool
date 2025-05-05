@@ -3,6 +3,15 @@ import pandas as pd
 import json
 import pathlib
 from dotenv import load_dotenv
+import logging
+
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    encoding='utf-8'
+)
+logger = logging.getLogger(__name__)
 
 load_dotenv()  # 加载环境变量
 
@@ -42,13 +51,13 @@ def process_sponsor_data():
                         if "sessionName" in sponsor and "sponsorName" in sponsor:
                             key = f"{sponsor['sessionName']}_{sponsor['sponsorName']}"
                             existing_sponsors[key] = sponsor
-            print(f"已读取{len(existing_sponsors)}条现有赞助商数据")
+            logger.info(f"已读取{len(existing_sponsors)}条现有赞助商数据")
         except Exception as e:
-            print(f"读取现有数据时出错: {str(e)}")
+            logger.error(f"读取现有数据时出错: {str(e)}")
     
     # 处理每个Excel文件
     for excel_file in excel_files:
-        print(f"处理文件: {excel_file}")
+        logger.info(f"处理文件: {excel_file}")
         try:
             df = pd.read_excel(excel_file)
             
@@ -73,23 +82,23 @@ def process_sponsor_data():
                     if key in existing_sponsors:
                         # 如果存在，更新记录
                         existing_sponsors[key].update(sponsor)
-                        print(f"更新已存在的赞助商: {sponsor['sponsorName']} for {sponsor['sessionName']}")
+                        logger.info(f"更新已存在的赞助商: {sponsor['sponsorName']} for {sponsor['sessionName']}")
                     else:
                         # 如果不存在，添加新记录
                         existing_sponsors[key] = sponsor
-                        print(f"添加新赞助商: {sponsor['sponsorName']} for {sponsor['sessionName']}")
+                        logger.info(f"添加新赞助商: {sponsor['sponsorName']} for {sponsor['sessionName']}")
                 else:
-                    print(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
+                    logger.error(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
                     
         except Exception as e:
-            print(f"处理文件 {excel_file} 时出错: {str(e)}")
+            logger.error(f"处理文件 {excel_file} 时出错: {str(e)}")
     
     # 写入JSONL文件
     with open(output_file, "w", encoding="utf-8") as f:
         for sponsor in existing_sponsors.values():
             f.write(json.dumps(sponsor, ensure_ascii=False) + "\n")
     
-    print(f"成功处理赞助商数据并保存到 {output_file}，共 {len(existing_sponsors)} 条记录")
+    logger.info(f"成功处理赞助商数据并保存到 {output_file}，共 {len(existing_sponsors)} 条记录")
 
 if __name__ == "__main__":
     process_sponsor_data()

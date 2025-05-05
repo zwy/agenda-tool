@@ -3,15 +3,23 @@ import pandas as pd
 import json
 import base64
 from pathlib import Path
+import logging
 from dotenv import load_dotenv
-import re
+
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    encoding='utf-8'
+)
+logger = logging.getLogger(__name__)
 
 # 尝试导入拼音库，如果不存在则提示安装
 try:
     from pypinyin import lazy_pinyin
 except ImportError:
-    print("需要安装pypinyin库，请运行: pip install pypinyin")
-    print("然后在requirements.txt中添加pypinyin")
+    logger.error("需要安装pypinyin库，请运行: pip install pypinyin")
+    logger.error("然后在requirements.txt中添加pypinyin")
     raise
 
 load_dotenv()  # 加载环境变量
@@ -58,14 +66,14 @@ def process_expert_data():
                         expert = json.loads(line)
                         if "expertCode" in expert:
                             existing_experts[expert["expertCode"]] = expert
-            print(f"已读取{len(existing_experts)}条现有专家数据")
+            logger.info(f"已读取{len(existing_experts)}条现有专家数据")
         except Exception as e:
-            print(f"读取现有数据时出错: {str(e)}")
+            logger.error(f"读取现有数据时出错: {str(e)}")
     
     # 处理每个Excel文件
     all_experts = []
     for excel_file in excel_files:
-        print(f"处理文件: {excel_file}")
+        logger.info(f"处理文件: {excel_file}")
         try:
             df = pd.read_excel(excel_file)
             
@@ -82,11 +90,11 @@ def process_expert_data():
                 
                 # 确保必填字段存在
                 if "sessionName" not in expert or not expert["sessionName"]:
-                    print(f"错误: 跳过缺少分会场名称的记录")
+                    logger.error(f"错误: 跳过缺少分会场名称的记录")
                     continue
                 
                 if "expertName" not in expert or not expert["expertName"]:
-                    print(f"错误: 跳过缺少专家姓名的记录")
+                    logger.error(f"错误: 跳过缺少专家姓名的记录")
                     continue
                 
                 # 生成专家编码，基于（分会场名称+专家姓名+meeting）
@@ -110,25 +118,25 @@ def process_expert_data():
                             if k not in expert or not expert[k]:
                                 expert[k] = v
                         existing_experts[expert["expertCode"]] = expert
-                        print(f"更新已存在的专家: {expert['expertName']} ({expert['sessionName']})")
+                        logger.info(f"更新已存在的专家: {expert['expertName']} ({expert['sessionName']})")
                     else:
                         # 添加新记录
                         existing_experts[expert["expertCode"]] = expert
-                        print(f"添加新专家: {expert['expertName']} ({expert['sessionName']})")
+                        logger.info(f"添加新专家: {expert['expertName']} ({expert['sessionName']})")
                 else:
-                    print(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
+                    logger.error(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
                 
                 all_experts.append(expert)
                     
         except Exception as e:
-            print(f"处理文件 {excel_file} 时出错: {str(e)}")
+            logger.error(f"处理文件 {excel_file} 时出错: {str(e)}")
     
     # 写入JSONL文件
     with open(output_file, "w", encoding="utf-8") as f:
         for expert in existing_experts.values():
             f.write(json.dumps(expert, ensure_ascii=False) + "\n")
     
-    print(f"成功处理专家数据并保存到 {output_file}，共 {len(existing_experts)} 条记录")
+    logger.info(f"成功处理专家数据并保存到 {output_file}，共 {len(existing_experts)} 条记录")
 
 if __name__ == "__main__":
     process_expert_data()

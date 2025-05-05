@@ -1,5 +1,10 @@
 import json
 import pathlib
+import logging
+
+# 配置日志
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
+logger = logging.getLogger(__name__)
 
 def process_output_reporters():
     """根据 expert.jsonl 和 report.jsonl 生成 reporters.json 输出文件"""
@@ -8,17 +13,17 @@ def process_output_reporters():
     report_file = pathlib.Path("data/report.jsonl")
     
     if not expert_file.exists():
-        print(f"错误: 文件 {expert_file} 不存在!")
+        logger.error(f"错误: 文件 {expert_file} 不存在!")
         return
     
     if not report_file.exists():
-        print(f"错误: 文件 {report_file} 不存在!")
+        logger.error(f"错误: 文件 {report_file} 不存在!")
         return
 
     # 读取 schema 文件
     schema_file = pathlib.Path("output/model/reporters.json")
     if not schema_file.exists():
-        print(f"错误: Schema文件 {schema_file} 不存在!")
+        logger.error(f"错误: Schema文件 {schema_file} 不存在!")
         return
     
     try:
@@ -29,7 +34,7 @@ def process_output_reporters():
             # 获取必填字段列表
             required_fields = schema.get("items", {}).get("required", [])
     except Exception as e:
-        print(f"读取Schema时出错: {str(e)}")
+        logger.error(f"读取Schema时出错: {str(e)}")
         return
     
     # 从报告文件中提取所有报告人和PI的姓名以及会场信息
@@ -42,7 +47,7 @@ def process_output_reporters():
                     session_name = report.get("sessionName", "")
                     
                     if not session_name:
-                        print(f"警告: 报告记录缺少分会场名称，跳过: {report}")
+                        logger.warning(f"警告: 报告记录缺少分会场名称，跳过: {report}")
                         continue
                     
                     # 提取reporterName字段（可能有多个，用逗号分隔）
@@ -59,9 +64,9 @@ def process_output_reporters():
                             if name:
                                 reporter_identifiers.add(f"{session_name}+{name}")
         
-        print(f"已从报告数据中提取{len(reporter_identifiers)}个报告人/PI身份标识(分会场+姓名)")
+        logger.info(f"已从报告数据中提取{len(reporter_identifiers)}个报告人/PI身份标识(分会场+姓名)")
     except Exception as e:
-        print(f"读取报告数据时出错: {str(e)}")
+        logger.error(f"读取报告数据时出错: {str(e)}")
         return
     
     # 筛选出是报告人或PI的专家
@@ -92,15 +97,15 @@ def process_output_reporters():
                         # 验证必填字段
                         missing_fields = [field for field in required_fields if not filtered_expert[field]]
                         if missing_fields:
-                            print(
+                            logger.error(
                                 f"错误: 记录缺少必填字段值: {missing_fields}, 跳过该记录: {expert['expertName'] if expert['expertName'] else '未知专家'}, 分会场: {session_name}")
                             continue
                             
                         reporters.append(filtered_expert)
         
-        print(f"已筛选并验证{len(reporters)}条报告人/PI数据")
+        logger.info(f"已筛选并验证{len(reporters)}条报告人/PI数据")
     except Exception as e:
-        print(f"读取专家数据时出错: {str(e)}")
+        logger.error(f"读取专家数据时出错: {str(e)}")
         return
     
     # 添加去重逻辑：根据expertName、title、secondTitle、rbaseUrl去重
@@ -124,7 +129,7 @@ def process_output_reporters():
     # 输出去重信息
     removed_count = len(reporters) - len(unique_reporters)
     if removed_count > 0:
-        print(f"检测到{removed_count}条重复专家数据，已去重")
+        logger.info(f"检测到{removed_count}条重复专家数据，已去重")
     
     # 确保输出目录存在
     output_dir = pathlib.Path("output/data")
@@ -135,9 +140,9 @@ def process_output_reporters():
     try:
         with open(output_file, "w", encoding="utf-8") as f:
             json.dump(unique_reporters, f, ensure_ascii=False, indent=2)
-        print(f"已将报告人/PI数据保存到 {output_file}，共 {len(unique_reporters)} 条记录")
+        logger.info(f"已将报告人/PI数据保存到 {output_file}，共 {len(unique_reporters)} 条记录")
     except Exception as e:
-        print(f"保存数据时出错: {str(e)}")
+        logger.error(f"保存数据时出错: {str(e)}")
 
 if __name__ == "__main__":
     process_output_reporters()

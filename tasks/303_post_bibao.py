@@ -4,7 +4,7 @@ import logging
 from pathlib import Path
 
 # 配置日志
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
 logger = logging.getLogger(__name__)
 
 def read_jsonl(file_path):

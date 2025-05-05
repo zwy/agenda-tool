@@ -3,7 +3,12 @@ import pandas as pd
 import json
 from pathlib import Path
 from datetime import datetime
+import logging
 from dotenv import load_dotenv
+
+# 配置日志
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
+logger = logging.getLogger(__name__)
 
 load_dotenv()  # 加载环境变量
 
@@ -42,9 +47,9 @@ def process_report_data():
                         # 使用agendaCode作为唯一标识
                         if "agendaCode" in report:
                             existing_reports[report["agendaCode"]] = report
-            print(f"已读取{len(existing_reports)}条现有报告数据")
+            logger.info(f"已读取{len(existing_reports)}条现有报告数据")
         except Exception as e:
-            print(f"读取现有数据时出错: {str(e)}")
+            logger.error(f"读取现有数据时出错: {str(e)}")
     
     # 从video.jsonl读取视频信息
     video_data = {}
@@ -57,9 +62,9 @@ def process_report_data():
                         video = json.loads(line)
                         if "aliyunVid" in video:
                             video_data[video["aliyunVid"]] = video
-            print(f"已读取{len(video_data)}条视频数据")
+            logger.info(f"已读取{len(video_data)}条视频数据")
         except Exception as e:
-            print(f"读取视频数据时出错: {str(e)}")
+            logger.error(f"读取视频数据时出错: {str(e)}")
     
     # 读取专家数据，用于验证专家姓名
     experts_map = {}  # 用于存储 "分会场名称+专家姓名" -> 专家数据 的映射
@@ -73,14 +78,14 @@ def process_report_data():
                         if "sessionName" in expert and "expertName" in expert:
                             key = f"{expert['sessionName']}+{expert['expertName']}"
                             experts_map[key] = expert
-            print(f"已读取{len(experts_map)}条专家数据")
+            logger.info(f"已读取{len(experts_map)}条专家数据")
         except Exception as e:
-            print(f"读取专家数据时出错: {str(e)}")
+            logger.error(f"读取专家数据时出错: {str(e)}")
     
     # 处理每个Excel文件
     all_reports = []
     for excel_file in excel_files:
-        print(f"处理文件: {excel_file}")
+        logger.info(f"处理文件: {excel_file}")
         try:
             df = pd.read_excel(excel_file)
             
@@ -100,7 +105,7 @@ def process_report_data():
                 missing_fields = [field for field in required_fields if field not in report or not report[field]]
                 
                 if missing_fields:
-                    print(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
+                    logger.error(f"错误: 跳过缺少必填字段的记录: {missing_fields}")
                     continue
                 
                 # 验证专家姓名是否存在于专家表中
@@ -120,14 +125,14 @@ def process_report_data():
                             invalid_reporters.append(name)
                     
                     if invalid_reporters:
-                        print(
+                        logger.error(
                             f"错误: 报告 '{report.get('agendaCode', '')}' 的报告人 {invalid_reporters} 不在专家表中")
                     
                     # 只保留有效的专家姓名
                     if valid_reporters:
                         report["reporterName"] = ", ".join(valid_reporters)
                     else:
-                        print(f"警告: 报告 '{report.get('agendaCode', '')}' 没有有效的报告人")
+                        logger.warning(f"警告: 报告 '{report.get('agendaCode', '')}' 没有有效的报告人")
                 
                 # 验证piName字段中的姓名
                 if "piName" in report and report["piName"]:
@@ -143,14 +148,14 @@ def process_report_data():
                             invalid_pis.append(name)
                     
                     if invalid_pis:
-                        print(
+                        logger.error(
                             f"错误: 报告 '{report.get('agendaCode', '')}' 的团队PI {invalid_pis} 不在专家表中")
                     
                     # 只保留有效的专家姓名
                     if valid_pis:
                         report["piName"] = ", ".join(valid_pis)
                     else:
-                        print(f"警告: 报告 '{report.get('agendaCode', '')}' 没有有效的团队PI")
+                        logger.warning(f"警告: 报告 '{report.get('agendaCode', '')}' 没有有效的团队PI")
                 
                 # 验证枚举类型
                 enum_fields = {
@@ -161,7 +166,7 @@ def process_report_data():
                 
                 for field, enum_values in enum_fields.items():
                     if field in report and report[field] not in enum_values:
-                        print(
+                        logger.error(
                             f"错误: 字段 {field} 的值 '{report[field]}' 不在允许的范围 {enum_values} 内")
                         # 设置为空或默认值
                         if enum_values:
@@ -177,7 +182,7 @@ def process_report_data():
                             time_value = pd.to_datetime(report[field])
                             report[field] = time_value.strftime("%Y-%m-%d %H:%M:%S")
                         except Exception as e:
-                            print(f"错误: 无法解析 {field} 的值 '{report[field]}': {str(e)}")
+                            logger.error(f"错误: 无法解析 {field} 的值 '{report[field]}': {str(e)}")
                             report[field] = ""
                 
                 # 处理视频相关数据
@@ -195,23 +200,23 @@ def process_report_data():
                         if k not in report or not report[k]:
                             report[k] = v
                     existing_reports[report["agendaCode"]] = report
-                    print(f"更新已存在的报告: {report['agendaCode']} ({report.get('reportTitle', '')})")
+                    logger.info(f"更新已存在的报告: {report['agendaCode']} ({report.get('reportTitle', '')})")
                 else:
                     # 添加新记录
                     existing_reports[report["agendaCode"]] = report
-                    print(f"添加新报告: {report['agendaCode']} ({report.get('reportTitle', '')})")
+                    logger.info(f"添加新报告: {report['agendaCode']} ({report.get('reportTitle', '')})")
                 
                 all_reports.append(report)
                     
         except Exception as e:
-            print(f"处理文件 {excel_file} 时出错: {str(e)}")
+            logger.error(f"处理文件 {excel_file} 时出错: {str(e)}")
     
     # 写入JSONL文件
     with open(output_file, "w", encoding="utf-8") as f:
         for report in existing_reports.values():
             f.write(json.dumps(report, ensure_ascii=False) + "\n")
     
-    print(f"成功处理报告数据并保存到 {output_file}，共 {len(existing_reports)} 条记录")
+    logger.info(f"成功处理报告数据并保存到 {output_file}，共 {len(existing_reports)} 条记录")
     
     # 更新分会场统计数据
     update_session_statistics()
@@ -270,7 +275,7 @@ def update_session_statistics():
         for session in sessions:
             f.write(json.dumps(session, ensure_ascii=False) + "\n")
     
-    print(f"已更新分会场报告统计数据")
+    logger.info(f"已更新分会场报告统计数据")
 
 if __name__ == "__main__":
     process_report_data()

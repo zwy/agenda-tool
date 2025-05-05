@@ -1,5 +1,10 @@
 import json
 import pathlib
+import logging
+
+# 配置日志
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
+logger = logging.getLogger(__name__)
 
 
 def process_video_data():
@@ -8,7 +13,7 @@ def process_video_data():
     input_file = pathlib.Path("data/video.jsonl")
 
     if not input_file.exists():
-        print(f"错误: 文件 {input_file} 不存在!")
+        logger.error(f"错误: 文件 {input_file} 不存在!")
         return
 
     videos = []
@@ -18,9 +23,9 @@ def process_video_data():
                 if line.strip():
                     video = json.loads(line)
                     videos.append(video)
-        print(f"已读取{len(videos)}条视频数据")
+        logger.info(f"已读取{len(videos)}条视频数据")
     except Exception as e:
-        print(f"读取数据时出错: {str(e)}")
+        logger.error(f"读取数据时出错: {str(e)}")
         return
 
     # 处理缺失字段
@@ -46,16 +51,16 @@ def process_video_data():
         if updated:
             updated_count += 1
 
-    print(f"已更新{updated_count}条记录的字段")
+    logger.info(f"已更新{updated_count}条记录的字段")
 
     # 保存回文件
     try:
         with open(input_file, "w", encoding="utf-8") as f:
             for video in videos:
                 f.write(json.dumps(video, ensure_ascii=False) + "\n")
-        print(f"已将更新后的数据保存到 {input_file}")
+        logger.info(f"已将更新后的数据保存到 {input_file}")
     except Exception as e:
-        print(f"保存数据时出错: {str(e)}")
+        logger.error(f"保存数据时出错: {str(e)}")
 
 
 if __name__ == "__main__":
