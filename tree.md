@@ -2,32 +2,101 @@
 ├── archive
 ├── config.json
 ├── data
-│   └── session.jsonl
+│   ├── bibao.jsonl
+│   ├── expert.jsonl
+│   ├── report.jsonl
+│   ├── session.jsonl
+│   ├── sponsor.jsonl
+│   └── video.jsonl
 ├── docs
 │   ├── 1-项目介绍.md
 │   ├── 10-目录结构说明.md
 │   ├── 2-规则说明.md
 │   ├── 3-运营说明.md
+│   ├── api_all_bibaos.json
+│   ├── api_author_detail.json
 │   ├── prompt
 │   │   ├── system_prompt.md
 │   │   ├── user_1.md
+│   │   ├── user_10.md
+│   │   ├── user_11.md
+│   │   ├── user_12.md
+│   │   ├── user_13.md
+│   │   ├── user_14.md
+│   │   ├── user_15.md
+│   │   ├── user_16.md
 │   │   ├── user_2.md
-│   │   └── user_3.md
+│   │   ├── user_21.md
+│   │   ├── user_22.md
+│   │   ├── user_23.md
+│   │   ├── user_24.md
+│   │   ├── user_3.md
+│   │   ├── user_31.md
+│   │   ├── user_32.md
+│   │   ├── user_33.md
+│   │   ├── user_34.md
+│   │   ├── user_35.md
+│   │   ├── user_36.md
+│   │   ├── user_4.md
+│   │   ├── user_5.md
+│   │   └── user_6.md
 │   ├── prompt.md
 │   └── 问题记录.md
 ├── input
 │   ├── avatar
+│   │   ├── iMeta作者论坛
+│   │   │   ├── Li San.png
+│   │   │   ├── Nicola Segata.png
+│   │   │   ├── 黄大包（huang da）.png
+│   │   │   ├── 李群益.png
+│   │   │   ├── 李四.png
+│   │   │   ├── 王五.png
+│   │   │   └── 张三.png
 │   │   ├── 宏基因组
 │   │   │   ├── lishi.png
 │   │   │   └── 张三.png
 │   │   └── 宏基因组2
 │   │       └── 张三.png
-│   └── session
-│       └── 输入-分会场.xlsx
+│   ├── expert
+│   │   ├── 输入-专家_副本.xlsx
+│   │   ├── 输入-专家_副本2.xlsx
+│   │   └── 输入-专家.xlsx
+│   ├── report
+│   │   └── 输入-报告.xlsx
+│   ├── session
+│   │   └── 输入-分会场.xlsx
+│   ├── sponsor
+│   │   └── 输入-分会场赞助.xlsx
+│   └── video
+│       ├── Video_List (10).csv
+│       └── 输入-视频.xlsx
+├── logs
+│   ├── execution_20250429_143139.log
+│   ├── execution_20250429_143539.log
+│   ├── execution_20250429_143753.log
+│   ├── execution_20250429_144401.log
+│   ├── execution_20250429_144526.log
+│   ├── execution_20250429_162206.log
+│   ├── execution_20250429_162334.log
+│   ├── execution_20250429_162607.log
+│   ├── execution_20250429_162918.log
+│   ├── execution_20250429_163624.log
+│   ├── execution_20250429_164453.log
+│   ├── execution_20250429_165554.log
+│   ├── execution_20250429_170638.log
+│   ├── execution_20250429_171013.log
+│   ├── execution_20250429_171216.log
+│   ├── execution_20250501_170821.log
+│   ├── execution_20250501_172838.log
+│   ├── execution_20250501_190758.log
+│   ├── execution_20250503_141227.log
+│   ├── execution_20250503_141347.log
+│   └── execution_20250503_145459.log
 ├── main.py
 ├── model
 │   ├── bibao.json
 │   ├── expert.json
+│   ├── oss_video.json
 │   ├── report.json
 │   ├── session.json
 │   ├── sponsor.json
@@ -35,9 +104,27 @@
 ├── output
 │   ├── data
 │   │   ├── agenda
+│   │   │   ├── 123.json
+│   │   │   ├── 321.json
+│   │   │   ├── caaa.json
 │   │   │   └── CDGJDH001.json
+│   │   ├── avatar
+│   │   │   └── iMeta作者论坛
+│   │   │       ├── Li San.png
+│   │   │       ├── Nicola Segata.png
+│   │   │       ├── 黄大包（huang da）.png
+│   │   │       ├── 李群益.png
+│   │   │       ├── 李四.png
+│   │   │       ├── 王五.png
+│   │   │       └── 张三.png
 │   │   ├── bibao
-│   │   │   └── BP001.json
+│   │   │   ├── 101.json
+│   │   │   ├── 14.json
+│   │   │   ├── 17.json
+│   │   │   ├── 188.json
+│   │   │   ├── 189.json
+│   │   │   ├── 8.json
+│   │   │   └── 92.json
 │   │   ├── bibaos.json
 │   │   ├── experts.json
 │   │   ├── reporters.json
@@ -57,10 +144,29 @@
 ├── README.md
 ├── requirements.txt
 ├── tasks
-│   ├── clear_data.py
-│   ├── deal_session.py
-│   ├── post_session.py
-│   └── pre_session.py
+│   ├── 1_clear_data.py
+│   ├── 100_pre_session.py
+│   ├── 1000_sync_to_oss.py
+│   ├── 101_pre_sponsor.py
+│   ├── 102_pre_bibao.py
+│   ├── 103_pre_video.py
+│   ├── 104_pre_video.py
+│   ├── 105_pre_expert.py
+│   ├── 106_pre_report.py
+│   ├── 200_deal_session.py
+│   ├── 201_deal_video.py
+│   ├── 202_deal_bibao.py
+│   ├── 203_deal_expert.py
+│   ├── 204_deal_expert.py
+│   ├── 300_post_session.py
+│   ├── 301_post_sponsor.py
+│   ├── 302_post_bibao.py
+│   ├── 303_post_bibao.py
+│   ├── 304_post_expert.py
+│   ├── 305_post_expert.py
+│   ├── 306_post_report.py
+│   └── 307_post_report.py
+├── tree_f.md
 └── tree.md
 
-19 directories, 45 files
+27 directories, 143 files
