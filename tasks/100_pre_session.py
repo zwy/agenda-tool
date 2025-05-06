@@ -130,7 +130,7 @@ def process_session_data():
                 # 生成sessionCode
                 if "sessionName" in session and session["sessionName"]:
                     code_str = session["sessionName"] + meeting_id
-                    session["sessionCode"] = base64.b64encode(code_str.encode('utf-8')).decode('utf-8')
+                    session["sessionCode"] = base64.urlsafe_b64encode(code_str.encode('utf-8')).decode('utf-8').rstrip('=')
 
                 # 初始化报告数量字段
                 session["teyao"] = 0

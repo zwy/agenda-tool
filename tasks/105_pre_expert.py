@@ -99,7 +99,8 @@ def process_expert_data():
                 
                 # 生成专家编码，基于（分会场名称+专家姓名+meeting）
                 code_str = expert["sessionName"] + expert["expertName"] + meeting_id
-                expert["expertCode"] = base64.b64encode(code_str.encode('utf-8')).decode('utf-8')
+                expert["expertCode"] = base64.urlsafe_b64encode(
+                    code_str.encode('utf-8')).decode('utf-8').rstrip('=')
                 
                 # 生成拼音
                 if "expertName" in expert and expert["expertName"]:
