@@ -1,7 +1,7 @@
 ## tree 项目目录结构
 ### tree (默认)
 ```
-tree >tree.md 
+tree >tree.txt
 ```
 ### tree -f 显示完整路径 (包含斜杠/)
 ```

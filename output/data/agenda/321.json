@@ -1,20 +1,18 @@
-[
-  {
-    "sessionName": "iMeta作者论坛",
-    "reporterName": "张三, 李四, 王五",
-    "piName": "",
-    "reportType": "其他",
-    "reportTitle": "",
-    "reportEnTitle": "",
-    "startTime": "",
-    "endTime": "",
-    "summary": "",
-    "enSummary": "",
-    "agendaCode": "321",
-    "reportSource": "",
-    "aliyunVid": "",
-    "duration": "",
-    "permission": "",
-    "cover": ""
-  }
-]
+{
+  "sessionName": "iMeta作者论坛",
+  "reporterName": "张三, 李四, 王五",
+  "piName": "",
+  "reportType": "其他",
+  "reportTitle": "",
+  "reportEnTitle": "",
+  "startTime": "",
+  "endTime": "",
+  "summary": "",
+  "enSummary": "",
+  "agendaCode": "321",
+  "reportSource": "",
+  "aliyunVid": "",
+  "duration": "",
+  "permission": "",
+  "cover": ""
+}

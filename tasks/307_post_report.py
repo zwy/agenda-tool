@@ -90,7 +90,8 @@ def process_report_to_individual_files():
                     output_file = output_dir / f"{agenda_code}.json"
                     with open(output_file, "w", encoding="utf-8") as out_f:
                         # 将过滤后的报告包装成列表
-                        json.dump([filtered_report], out_f, ensure_ascii=False, indent=2)
+                        json.dump(filtered_report, out_f,
+                                  ensure_ascii=False, indent=2)
                     
                     processed_count += 1
                 

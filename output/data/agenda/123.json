@@ -1,20 +1,18 @@
-[
-  {
-    "sessionName": "iMeta作者论坛",
-    "reporterName": "",
-    "piName": "",
-    "reportType": "茶歇",
-    "reportTitle": "",
-    "reportEnTitle": "",
-    "startTime": "",
-    "endTime": "",
-    "summary": "",
-    "enSummary": "",
-    "agendaCode": "123",
-    "reportSource": "",
-    "aliyunVid": "",
-    "duration": "",
-    "permission": "",
-    "cover": ""
-  }
-]
+{
+  "sessionName": "iMeta作者论坛",
+  "reporterName": "",
+  "piName": "",
+  "reportType": "茶歇",
+  "reportTitle": "",
+  "reportEnTitle": "",
+  "startTime": "",
+  "endTime": "",
+  "summary": "",
+  "enSummary": "",
+  "agendaCode": "123",
+  "reportSource": "",
+  "aliyunVid": "",
+  "duration": "",
+  "permission": "",
+  "cover": ""
+}
