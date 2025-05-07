@@ -93,7 +93,6 @@
             "sessionName",
             "showName",
             "type",
-            "venueName",
             "sessionCode",
             "startTime",
             "endTime"

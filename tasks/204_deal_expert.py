@@ -1,6 +1,7 @@
 import json
 import pathlib
 import os
+import re
 import shutil
 import urllib.parse
 import logging
@@ -55,7 +56,9 @@ def process_expert_data():
         if not session_name or not expert_name:
             logger.error(f"错误: 专家数据缺少sessionName或expertName字段: {expert}")
             continue
-        
+        # 处理路径中的特殊字符，如session_name 的换行符
+        session_name = re.sub(r'[\r\n]', '', session_name)
+
         # 检查头像文件是否存在
         avatar_path = pathlib.Path(f"input/avatar/{session_name}/{expert_name}.png")
         

@@ -85,6 +85,9 @@ async def download_avatar(avatar_path, session_name, expert_name):
     if avatar_path.startswith('/'):
         avatar_path = avatar_path[1:]
     
+    # 处理路径中的特殊字符，如session_name 的换行符
+    session_name = re.sub(r'[\r\n]', '', session_name)
+
     # 创建本地保存目录
     local_dir = Path(f"input/avatar/{session_name}")
     local_dir.mkdir(parents=True, exist_ok=True)
