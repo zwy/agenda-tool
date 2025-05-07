@@ -168,5 +168,50 @@
     "tougao": 0,
     "haiwai": 0,
     "showName": "徐健老师专题培训班"
+  },
+  {
+    "sessionName": "标准舞台B-5月22日下午",
+    "type": "产业分会场",
+    "venueName": "311",
+    "startTime": "2025-01-02 18:00:01",
+    "endTime": "2025-01-02 19:00:01",
+    "day": "01月02日",
+    "week": "星期四",
+    "eeee": "下午",
+    "sessionCode": "5qCH5YeG6Iie5Y-wQi015pyIMjLml6XkuIvljYhjaGluYWd1dDIwMjU",
+    "teyao": 0,
+    "tougao": 0,
+    "haiwai": 0,
+    "showName": "标准舞台B-5月22日下午"
+  },
+  {
+    "sessionName": "标准舞台B-5月23日上午",
+    "type": "产业分会场",
+    "venueName": "311",
+    "startTime": "2025-01-02 18:00:01",
+    "endTime": "2025-01-02 19:00:02",
+    "day": "01月02日",
+    "week": "星期四",
+    "eeee": "下午",
+    "sessionCode": "5qCH5YeG6Iie5Y-wQi015pyIMjPml6XkuIrljYhjaGluYWd1dDIwMjU",
+    "teyao": 0,
+    "tougao": 1,
+    "haiwai": 0,
+    "showName": "标准舞台B-5月23日上午"
+  },
+  {
+    "sessionName": "标准舞台B-5月23日下午",
+    "type": "产业分会场",
+    "venueName": "311",
+    "startTime": "2025-01-02 18:00:03",
+    "endTime": "2025-01-02 19:00:03",
+    "day": "01月02日",
+    "week": "星期四",
+    "eeee": "下午",
+    "sessionCode": "5qCH5YeG6Iie5Y-wQi015pyIMjPml6XkuIvljYhjaGluYWd1dDIwMjU",
+    "teyao": 0,
+    "tougao": 0,
+    "haiwai": 0,
+    "showName": "标准舞台B-5月23日下午"
   }
 ]
