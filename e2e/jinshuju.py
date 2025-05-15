@@ -23,7 +23,7 @@ def main():
         sys.exit(1)
     
     # 获取输出文件路径（如果提供）或使用默认值
-    output_dir = sys.argv[2] if len(sys.argv) == 3 else "data"
+    output_dir = sys.argv[2] if len(sys.argv) == 3 else "tmp"
 
     # 判断 output_dir 是不是目录
     if not os.path.isdir(output_dir):
