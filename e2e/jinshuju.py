@@ -1,4 +1,4 @@
-from util import process_excel, save_to_jsonl, filter_fields, rename_fields
+from util import process_excel, save_to_jsonl, filter_fields, rename_fields, save_to_excel
 import sys
 import os
 import traceback
@@ -24,12 +24,19 @@ def main():
     
     # 获取输出文件路径（如果提供）或使用默认值
     output_file = sys.argv[2] if len(sys.argv) == 3 else "data/demo_xueshu.jsonl"
+
+    # 这里需要检测 output_file 是不是 jsonl 文件
+    if not output_file.endswith(".jsonl"):
+        print(f"错误: 输出文件 '{output_file}' 不是 jsonl 文件")
+        sys.exit(1)
     
+    # output_excel， 和 output_file 同一个目录下，同名，后缀不同
+    output_excel = os.path.splitext(output_file)[0] + ".xlsx"
+
     # 处理Excel文件
     try:
         # 获取原始数据
         data = process_excel(excel_path)
-
 
         # 重命名字段
         field_map = {
@@ -47,6 +54,9 @@ def main():
 
         # 保存过滤后的数据
         save_to_jsonl(filtered_data, output_file)
+
+        # 保存Excel文件
+        save_to_excel(filtered_data, output_excel)
     except Exception as e:
         print(f"处理Excel文件时出错: {str(e)}")
         traceback.print_exc()

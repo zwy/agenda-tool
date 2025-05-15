@@ -141,3 +141,45 @@ def rename_fields(data, field_map):
         renamed_data.append(renamed_item)
     
     return renamed_data
+
+def save_to_excel(data, output_file):
+    """
+    将数据保存为Excel文件
+    
+    Args:
+        data: 要保存的数据列表，每项为一个字典
+        output_file: 输出Excel文件路径
+    """
+    # 确保目录存在
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    
+    # 将数据转换为DataFrame
+    df = pd.DataFrame(data)
+    
+    # 保存为Excel文件
+    with pd.ExcelWriter(output_file, engine='openpyxl') as writer:
+        df.to_excel(writer, index=False, sheet_name='数据')
+        
+        # 获取工作簿和工作表对象，以便进行格式调整
+        workbook = writer.book
+        worksheet = writer.sheets['数据']
+        
+        # 自动调整列宽
+        for column in worksheet.columns:
+            max_length = 0
+            column_letter = column[0].column_letter
+            for cell in column:
+                try:
+                    if len(str(cell.value)) > max_length:
+                        max_length = len(str(cell.value))
+                except:
+                    pass
+            # 稍微增加宽度以便更好地显示
+            adjusted_width = (max_length + 2)
+            # 限制最大宽度，避免过宽
+            adjusted_width = min(adjusted_width, 50)
+            worksheet.column_dimensions[column_letter].width = adjusted_width
+    
+    print(f"数据已成功保存到Excel文件: {output_file}")
+    print(f"数据总行数: {len(data)}")
+    print(f"数据总列数: {len(data[0]) if data else 0}")
