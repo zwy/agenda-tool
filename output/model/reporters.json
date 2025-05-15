@@ -57,10 +57,23 @@
                 "type": "string",
                 "format": "uri",
                 "description": "专家在rbase上的个人详情页链接"
+            },
+            "sessionsType": {
+                "title": "分会场类型",
+                "type": "string",
+                "enum": [
+                    "开幕式",
+                    "培训班",
+                    "学术分会场",
+                    "产业分会场",
+                    "卫星会",
+                    "其他"
+                ]
             }
         },
         "required": [
-            "expertName"
+            "expertName",
+            "sessionsType"
         ]
     }
 }

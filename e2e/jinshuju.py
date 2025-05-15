@@ -12,7 +12,7 @@ def main():
     """
     if len(sys.argv) < 2 or len(sys.argv) > 3:
         print("用法: python xueshu.py <Excel文件绝对路径> [输出文件路径]")
-        print("注意: 如果不指定输出文件路径，默认保存为 data/demo_xueshu.jsonl")
+        print("注意: 如果不指定输出文件路径，默认保存为 data")
         sys.exit(1)
     
     excel_path = sys.argv[1]
@@ -23,16 +23,21 @@ def main():
         sys.exit(1)
     
     # 获取输出文件路径（如果提供）或使用默认值
-    output_file = sys.argv[2] if len(sys.argv) == 3 else "data/demo_xueshu.jsonl"
+    output_dir = sys.argv[2] if len(sys.argv) == 3 else "data"
 
-    # 这里需要检测 output_file 是不是 jsonl 文件
-    if not output_file.endswith(".jsonl"):
-        print(f"错误: 输出文件 '{output_file}' 不是 jsonl 文件")
+    # 判断 output_dir 是不是目录
+    if not os.path.isdir(output_dir):
+        print(f"错误: '{output_dir}' 不是一个有效的目录")
         sys.exit(1)
-    
-    # output_excel， 和 output_file 同一个目录下，同名，后缀不同
-    output_excel = os.path.splitext(output_file)[0] + ".xlsx"
+    # output_file 是 excel_path 的同级目录下，文件名和 excel_path 一样，但是是一个 jsonl 文件
+    output_file = os.path.join(output_dir, os.path.basename(excel_path).replace(".xlsx", "_e2e_jinshuju.jsonl"))
 
+    # output_excel 是 excel_path 的同级目录下，文件名和 excel_path 一样，但是是一个 xlsx 文件
+    output_excel = os.path.join(output_dir, os.path.basename(
+        excel_path).replace(".xlsx", "_e2e_jinshuju.xlsx"))
+
+    print(f"输出文件路径: {output_file}")
+    print(f"输出Excel路径: {output_excel}")
     # 处理Excel文件
     try:
         # 获取原始数据

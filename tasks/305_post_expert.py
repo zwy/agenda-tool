@@ -6,8 +6,39 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
 logger = logging.getLogger(__name__)
 
+def load_session_types():
+    """从session.jsonl加载分会场类型信息"""
+    session_file = pathlib.Path("data/session.jsonl")
+    
+    if not session_file.exists():
+        logger.error(f"错误: 文件 {session_file} 不存在!")
+        return {}
+    
+    session_types = {}
+    try:
+        with open(session_file, "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    session = json.loads(line)
+                    session_name = session.get("sessionName", "")
+                    session_type = session.get("type", "")
+                    
+                    if session_name and session_type:
+                        session_types[session_name] = session_type
+        
+        logger.info(f"已加载{len(session_types)}个分会场类型映射")
+        return session_types
+    except Exception as e:
+        logger.error(f"读取分会场数据时出错: {str(e)}")
+        return {}
+
 def process_output_reporters():
     """根据 expert.jsonl 和 report.jsonl 生成 reporters.json 输出文件"""
+    # 读取分会场类型数据
+    session_types = load_session_types()
+    if not session_types:
+        logger.warning("警告: 未能加载分会场类型数据，sessionsType字段将为空")
+    
     # 读取 expert.jsonl 文件
     expert_file = pathlib.Path("data/expert.jsonl")
     report_file = pathlib.Path("data/report.jsonl")
@@ -89,7 +120,10 @@ def process_output_reporters():
                         # 只保留schema中定义的字段
                         filtered_expert = {}
                         for field in all_fields:
-                            if field in expert:
+                            if field == "sessionsType" and session_name in session_types:
+                                # 设置sessionsType字段
+                                filtered_expert[field] = session_types[session_name]
+                            elif field in expert:
                                 filtered_expert[field] = expert[field]
                             else:
                                 filtered_expert[field] = ""
@@ -113,12 +147,13 @@ def process_output_reporters():
     seen_experts = set()
     
     for expert in reporters:
-        # 创建唯一标识：expert_name+title+secondTitle+rbaseUrl
+        # 创建唯一标识：expert_name+title+secondTitle+rbaseUrl+sessionsType
         expert_unique_id = (
             expert.get("expertName", ""),
             expert.get("title", ""),
             expert.get("secondTitle", ""),
-            expert.get("rbaseUrl", "")
+            expert.get("rbaseUrl", ""),
+            expert.get("sessionsType", "")
         )
         
         # 如果这个唯一标识没有出现过，就添加到去重后的列表中

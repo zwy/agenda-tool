@@ -66,7 +66,9 @@ def process_excel(excel_path):
             df = df.drop(columns=[col])
     
     # 将所有数据转换为字符串，并处理NaN
-    df = df.applymap(convert_value)
+    # 使用 apply 替代已弃用的 applymap
+    for col in df.columns:
+        df[col] = df[col].map(convert_value)
     
     # 将DataFrame转换为字典列表
     data_list = df.to_dict(orient='records')

@@ -7,7 +7,8 @@
     "secondTitle": "南京医科大学教授",
     "academician": "中国工程院院士",
     "chairman": "主席",
-    "rbaseUrl": ""
+    "rbaseUrl": "",
+    "sessionsType": "产业分会场"
   },
   {
     "expertName": "李四",
@@ -17,7 +18,8 @@
     "secondTitle": "南京医科大学教授",
     "academician": "中国工程院院士",
     "chairman": "主席",
-    "rbaseUrl": ""
+    "rbaseUrl": "",
+    "sessionsType": "产业分会场"
   },
   {
     "expertName": "王五",
@@ -27,7 +29,19 @@
     "secondTitle": "南京医科大学教授",
     "academician": "中国工程院院士",
     "chairman": "主席",
-    "rbaseUrl": ""
+    "rbaseUrl": "",
+    "sessionsType": "产业分会场"
+  },
+  {
+    "expertName": "李四",
+    "avatar": "https://cdn.mr-gut.cn/data/chinagut2025/avatar/iMeta%E4%BD%9C%E8%80%85%E8%AE%BA%E5%9D%9B/%E6%9D%8E%E5%9B%9B.png",
+    "pinyin": "li si",
+    "title": "北京大学教授",
+    "secondTitle": "南京医科大学教授",
+    "academician": "中国工程院院士",
+    "chairman": "主席",
+    "rbaseUrl": "",
+    "sessionsType": "学术分会场"
   },
   {
     "expertName": "王五",
@@ -37,6 +51,18 @@
     "secondTitle": "",
     "academician": "",
     "chairman": "",
-    "rbaseUrl": ""
+    "rbaseUrl": "",
+    "sessionsType": "学术分会场"
+  },
+  {
+    "expertName": "张三",
+    "avatar": "https://cdn.mr-gut.cn/data/chinagut2025/avatar/iMeta%E4%BD%9C%E8%80%85%E8%AE%BA%E5%9D%9B/%E5%BC%A0%E4%B8%89.png",
+    "pinyin": "zhang san",
+    "title": "北京大学教授",
+    "secondTitle": "南京医科大学教授",
+    "academician": "中国工程院院士",
+    "chairman": "主席",
+    "rbaseUrl": "",
+    "sessionsType": "学术分会场"
   }
 ]
