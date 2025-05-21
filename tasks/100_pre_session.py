@@ -132,10 +132,13 @@ def process_session_data():
                     code_str = session["sessionName"] + meeting_id
                     session["sessionCode"] = base64.urlsafe_b64encode(code_str.encode('utf-8')).decode('utf-8').rstrip('=')
 
-                # 初始化报告数量字段
-                session["teyao"] = 0
-                session["tougao"] = 0
-                session["haiwai"] = 0
+                # 初始化报告数量字段， 如果没有则设置为0
+                if "teyao" not in session:
+                    session["teyao"] = 0
+                if "tougao" not in session:
+                    session["tougao"] = 0
+                if "haiwai" not in session:
+                    session["haiwai"] = 0
                 
                 # 验证必填字段
                 required_fields = schema.get("required", [])

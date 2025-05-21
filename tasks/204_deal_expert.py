@@ -48,6 +48,7 @@ def process_expert_data():
     # 处理每个专家的数据
     updated_count = 0
     error_count = 0
+    warning_count = 0
     
     for expert in experts:
         session_name = expert.get("sessionName")
@@ -61,11 +62,19 @@ def process_expert_data():
 
         # 检查头像文件是否存在
         avatar_path = pathlib.Path(f"input/avatar/{session_name}/{expert_name}.png")
-        
+
+        # 确保头像路径存在，如果不存在则创建
+        avatar_dir = avatar_path.parent
+        avatar_dir.mkdir(parents=True, exist_ok=True)
+
         if not avatar_path.exists():
-            logger.error(f"错误: 专家 {expert_name} 的头像文件不存在: {avatar_path}")
-            error_count += 1
-            continue
+            logger.info(
+                f"警告: 专家 {expert_name} 的头像文件不存在: {avatar_path} ，复制默认头像")
+            warning_count += 1
+            # 使用默认头像
+            default_avatar_path = pathlib.Path("public/images/default_expert.png")
+            if default_avatar_path.exists():
+                shutil.copy2(default_avatar_path, avatar_path)
         
         # 编码URL中的特殊字符
         encoded_session_name = urllib.parse.quote(session_name)
@@ -86,6 +95,8 @@ def process_expert_data():
     if error_count > 0:
         logger.error(f"发现 {error_count} 个头像文件不存在的错误，处理已中止.")
         return
+    if warning_count > 0:
+        logger.warning(f"发现 {warning_count} 个头像文件不存在的警告，已跳过.")
     
     logger.info(f"已更新 {updated_count} 条专家记录的avatar字段")
     

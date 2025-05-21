@@ -218,8 +218,8 @@ def process_report_data():
     
     logger.info(f"成功处理报告数据并保存到 {output_file}，共 {len(existing_reports)} 条记录")
     
-    # 更新分会场统计数据
-    update_session_statistics()
+    # 更新分会场统计数据，这里不做更新
+    # update_session_statistics()
 
 def update_session_statistics():
     """更新分会场的报告统计数据"""
