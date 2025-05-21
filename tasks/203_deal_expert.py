@@ -180,6 +180,11 @@ async def process_experts():
 async def main():
     """主函数"""
     logger.info("开始处理专家头像")
+    
+    # 运营要求暂停执行
+    logger.info("根据运营要求，暂时停止执行从rBase获取头像的操作")
+    return
+    
     await process_experts()
     logger.info("专家头像处理完成")
 
