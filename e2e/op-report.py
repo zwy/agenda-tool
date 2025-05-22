@@ -116,11 +116,19 @@ def transform_data(data_list, session_data=None, report_detail_data=None):
         end_time = ""
         if time_field and item.get(time_field):
             time_str = item[time_field]
-            # 尝试提取时间范围，格式如 "10:30-10:55"
+            # 统一补全小时为两位
+            def pad_hour(t):
+                m = re.match(r'(\d{1,2}):(\d{2})', t)
+                if m:
+                    return f"{int(m.group(1)):02d}:{m.group(2)}"
+                return t
+            # 匹配时间范围
             time_match = re.match(r'(\d{1,2}:\d{2})-(\d{1,2}:\d{2})', time_str)
             if time_match:
-                start_time = time_match.group(1) + ":00"
-                end_time = time_match.group(2) + ":00"
+                start_time_raw = time_match.group(1)
+                end_time_raw = time_match.group(2)
+                start_time = pad_hour(start_time_raw) + ":00"
+                end_time = pad_hour(end_time_raw) + ":00"
                 
                 # 如果有分会场日期信息，补充到时间中
                 if session_name in session_date_map:
@@ -243,6 +251,7 @@ def main():
             report_detail_data = process_excel(report_detail_excel_path)
             print(f"已读取报告详情数据，共 {len(report_detail_data)} 条记录")
         
+        print(f"已读取原始数据，共 {len(data)} 条记录")
         # 转换数据
         transformed_data = transform_data(data, session_data, report_detail_data)
         
