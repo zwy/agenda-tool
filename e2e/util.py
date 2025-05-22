@@ -19,6 +19,32 @@ def convert_value(x):
         return ""
     return str(x).strip()
 
+def fix_float_str_fields(data_list):
+    """
+    修正所有字典中的值，将形如 '123.0' 的字符串转为 '123'（仅限纯数字且小数部分为0的情况）
+
+    Args:
+        data_list: 字典列表
+
+    Returns:
+        修正后的字典列表
+    """
+    def fix_value(val):
+        if isinstance(val, str):
+            try:
+                f = float(val)
+                if f.is_integer():
+                    return str(int(f))
+            except Exception:
+                pass
+        return val
+
+    fixed = []
+    for item in data_list:
+        fixed_item = {k: fix_value(v) for k, v in item.items()}
+        fixed.append(fixed_item)
+    return fixed
+
 def process_excel(excel_path):
     """
     处理Excel文件，解决合并单元格问题，并将数据转换为字符串
@@ -72,7 +98,8 @@ def process_excel(excel_path):
     
     # 将DataFrame转换为字典列表
     data_list = df.to_dict(orient='records')
-    
+    # 修正所有字段的浮点数字符串
+    data_list = fix_float_str_fields(data_list)
     return data_list
 
 def save_to_jsonl(data, output_file):
