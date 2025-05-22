@@ -28,7 +28,7 @@
             "reportType": {
                 "title": "报告类型",
                 "type": "string",
-                "enum": ["报告", "茶歇", "其他"]
+                "enum": ["报告", "茶歇", "速讲", "其他"]
             },
             "reportTitle": {
                 "title": "报告题目",
