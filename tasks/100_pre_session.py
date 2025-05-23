@@ -79,7 +79,7 @@ def determine_time_period(start_time, end_time):
     
     if 5 <= start_hour < 12:
         return "上午"
-    elif 12 <= start_hour < 14 and end_hour < 14:
+    elif 12 <= start_hour < 14 and end_hour <= 14:
         return "中午"
     elif 12 <= start_hour and end_hour < 24:
         return "下午"
