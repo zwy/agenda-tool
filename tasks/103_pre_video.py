@@ -71,6 +71,8 @@ def process_video_data():
                 # 处理 媒体时长(s) 字段，如果存在，这个 字段里的数据是以秒为单位的，我们需要转成分钟，例如 120秒 = 2:00
                 if "duration" in video and video["duration"]:
                     try:
+                        # 这里的可能时长张这样1,855.552 需要转化为 1855.552
+                        video["duration"] = video["duration"].replace(",", "")  # 替换逗号为点
                         # 将秒转换为整数
                         seconds = int(float(video["duration"]))
                         # 计算分钟和剩余秒
